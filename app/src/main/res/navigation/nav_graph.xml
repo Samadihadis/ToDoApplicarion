@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/currentTodo">
+
+    <fragment
+        android:id="@+id/addTask"
+        android:name="com.hadis.todoapplicarion.AddTask"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" />
+    <fragment
+        android:id="@+id/currentTodo"
+        android:name="com.hadis.todoapplicarion.CurrentTodos"
+        android:label="fragment_current_todo"
+        tools:layout="@layout/fragment_current_todos">
+        <action
+            android:id="@+id/action_currentTodo_to_addTask"
+            app:destination="@+id/addTask"
+            />
+    </fragment>
+
+</navigation>
