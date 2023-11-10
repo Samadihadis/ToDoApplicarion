@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.hadis.todoapplicarion.databinding.FragmentAddTaskBinding
 
 class AddTask : Fragment() {
@@ -19,6 +20,10 @@ class AddTask : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.dateTextInput.setOnClickListener {
+            Picker(parentFragmentManager)
+        }
+
         binding.addTaskButton.setOnClickListener{
             val newTodo = Todo(
                 binding.addTitleTextView.editText?.text.toString() ,
@@ -27,6 +32,7 @@ class AddTask : Fragment() {
                 fullDate,
                 false
             )
+            Toast.makeText(requireContext(),newTodo.toString(),Toast.LENGTH_LONG).show()
         }
     }
 }

@@ -7,19 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.hadis.todoapplicarion.databinding.FragmentAddTaskBinding
+import com.hadis.todoapplicarion.databinding.FragmentCurrentTodosBinding
 
 class CurrentTodos : Fragment() {
+    private lateinit var binding: FragmentCurrentTodosBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_current_todos, container, false)
+    ): View {
+        binding = FragmentCurrentTodosBinding.inflate(inflater, container, false)
+        return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val textView = view.findViewById<TextView>(R.id.textViewCurrentTodos)
-        textView.setOnClickListener{
-            Navigation.findNavController(textView).navigate(R.id.action_currentTodo_to_addTask)
-        }
+      binding.addTaskButton.setOnClickListener{
+          Navigation.findNavController(binding.addTaskButton).navigate(R.id.action_currentTodo_to_addTask)
+      }
     }
 }
