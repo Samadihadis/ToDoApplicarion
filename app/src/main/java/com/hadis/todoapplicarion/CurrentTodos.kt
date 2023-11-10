@@ -13,21 +13,21 @@ import com.hadis.todoapplicarion.databinding.FragmentAddTaskBinding
 import com.hadis.todoapplicarion.databinding.FragmentCurrentTodosBinding
 
 val todoList = mutableListOf<Todo>()
+ lateinit var currentTodosBinding: FragmentCurrentTodosBinding
 
 class CurrentTodos : Fragment() {
-    private lateinit var binding: FragmentCurrentTodosBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCurrentTodosBinding.inflate(inflater, container, false)
-        return binding.root
+        currentTodosBinding = FragmentCurrentTodosBinding.inflate(inflater, container, false)
+        return currentTodosBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.addTaskButton.setOnClickListener {
-            Navigation.findNavController(binding.addTaskButton)
+        currentTodosBinding.addTaskButton.setOnClickListener {
+            Navigation.findNavController(currentTodosBinding.addTaskButton)
                 .navigate(R.id.action_currentTodo_to_addTask)
         }
 
@@ -40,7 +40,7 @@ class CurrentTodos : Fragment() {
 
     private fun initRecycleView() {
         val adaptor = TodoAdaptor(todoList, requireContext())
-        binding.recycleView.adapter = adaptor
-        binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
+        currentTodosBinding.recycleView.adapter = adaptor
+        currentTodosBinding.recycleView.layoutManager = LinearLayoutManager(requireContext())
     }
 }

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 class TodoAdaptor(var todoList: MutableList<Todo>, var context: Context) :
     RecyclerView.Adapter<TodoAdaptor.ViewHolder>() {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var card = itemView.findViewById<CardView>(R.id.cardView)
         var title = itemView.findViewById<TextView>(R.id.textTitle)
@@ -22,11 +22,21 @@ class TodoAdaptor(var todoList: MutableList<Todo>, var context: Context) :
         var time = itemView.findViewById<TextView>(R.id.textTime)
         var timeView = itemView.findViewById<TextView>(R.id.textViewTime)
         var isDoneCheckBox = itemView.findViewById<CheckBox>(R.id.isDoneCheckBox)
+
+        init {
+            isDoneCheckBox.setOnCheckedChangeListener { button, isSelected ->
+               if (isSelected){
+                   todoList.removeAt(adapterPosition)
+                   currentTodosBinding.recycleView.adapter!!.notifyDataSetChanged()
+               }
+            }
+        }
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_in_rec_view , parent,false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_in_rec_view, parent, false)
         return ViewHolder(view)
     }
 
