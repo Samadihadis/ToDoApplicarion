@@ -1,11 +1,14 @@
 package com.hadis.todoapplicarion
 
-import android.content.Context
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
-class Picker(var context: Context, var fragmentManager: FragmentManager) {
+class Picker(private var fragmentManager: FragmentManager) {
     init {
         makeDatePicker()
         makeTimePicker()
@@ -23,6 +26,14 @@ class Picker(var context: Context, var fragmentManager: FragmentManager) {
     }
 
     private fun makeDatePicker() {
-        TODO("Not yet implemented")
+        val datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select Date").build()
+        datePicker.show(fragmentManager,"datePickerInAddTask")
+
+        datePicker.addOnPositiveButtonClickListener {
+            val outputDateFormat = SimpleDateFormat("dd.MM.yyyy" , Locale.setDefault())
+            outputDateFormat.timeZone = TimeZone.getTimeZone("UTC")
+            fullDate = outputDateFormat.format(it)
+        }
+
     }
 }
