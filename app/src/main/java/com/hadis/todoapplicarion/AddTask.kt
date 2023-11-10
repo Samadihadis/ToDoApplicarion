@@ -8,16 +8,25 @@ import android.view.ViewGroup
 import com.hadis.todoapplicarion.databinding.FragmentAddTaskBinding
 
 class AddTask : Fragment() {
-    private var binding: FragmentAddTaskBinding? = null
+    private lateinit var binding: FragmentAddTaskBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddTaskBinding.inflate(inflater, container, false)
-        return binding!!.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.addTaskButton.setOnClickListener{
+            val newTodo = Todo(
+                binding.addTitleTextView.editText?.text.toString() ,
+                binding.addDescriptionTextView.editText?.text.toString(),
+                "$hour : $minute",
+                fullDate,
+                false
+            )
+        }
     }
 }
