@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="Add Title Task"
+        android:textColor="@color/green"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:textSize="24dp"
@@ -44,6 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="Add Description"
+        android:textColor="@color/green"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:textSize="24dp"
@@ -72,6 +74,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/green"
         android:text="Set Date"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
@@ -101,12 +104,13 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/addTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
+        app:cornerRadius="16dp"
         android:text="Add Task"
         android:textStyle="bold"
         android:background="@color/blue"

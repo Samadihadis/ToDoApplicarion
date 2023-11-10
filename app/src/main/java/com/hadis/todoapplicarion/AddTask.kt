@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
 import com.hadis.todoapplicarion.databinding.FragmentAddTaskBinding
 
 class AddTask : Fragment() {
@@ -21,7 +22,7 @@ class AddTask : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.dateTextInput.setOnClickListener {
-            Picker(parentFragmentManager)
+            Picker(parentFragmentManager , binding.dateTextInput)
         }
 
         binding.addTaskButton.setOnClickListener{
@@ -32,7 +33,9 @@ class AddTask : Fragment() {
                 fullDate,
                 false
             )
-            Toast.makeText(requireContext(),newTodo.toString(),Toast.LENGTH_LONG).show()
+            todoList.add(newTodo)
+            Navigation.findNavController(binding.addTaskButton).navigate(R.id.action_addTask_to_currentTodo)
+
         }
     }
 }

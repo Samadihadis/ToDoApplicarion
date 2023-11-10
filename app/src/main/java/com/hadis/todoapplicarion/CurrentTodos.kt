@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hadis.todoapplicarion.databinding.FragmentAddTaskBinding
 import com.hadis.todoapplicarion.databinding.FragmentCurrentTodosBinding
 
+val todoList = mutableListOf<Todo>()
+
 class CurrentTodos : Fragment() {
     private lateinit var binding: FragmentCurrentTodosBinding
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -21,10 +23,24 @@ class CurrentTodos : Fragment() {
         binding = FragmentCurrentTodosBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      binding.addTaskButton.setOnClickListener{
-          Navigation.findNavController(binding.addTaskButton).navigate(R.id.action_currentTodo_to_addTask)
-      }
+        binding.addTaskButton.setOnClickListener {
+            Navigation.findNavController(binding.addTaskButton)
+                .navigate(R.id.action_currentTodo_to_addTask)
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initRecycleView()
+    }
+
+    private fun initRecycleView() {
+        val adaptor = TodoAdaptor(todoList, requireContext())
+        binding.recycleView.adapter = adaptor
+        binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
     }
 }

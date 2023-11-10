@@ -1,5 +1,6 @@
 package com.hadis.todoapplicarion
 
+import android.widget.EditText
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -8,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 
-class Picker(private var fragmentManager: FragmentManager) {
+class Picker(private var fragmentManager: FragmentManager ,private var editText : EditText) {
     init {
         makeDatePicker()
     }
@@ -19,7 +20,7 @@ class Picker(private var fragmentManager: FragmentManager) {
         datePicker.show(fragmentManager, "datePickerInAddTask")
 
         datePicker.addOnPositiveButtonClickListener {
-            val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+            val outputDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             outputDateFormat.timeZone = TimeZone.getTimeZone("UTC")
             fullDate = outputDateFormat.format(it)
             makeTimePicker()
@@ -35,6 +36,8 @@ class Picker(private var fragmentManager: FragmentManager) {
         timePicker.addOnPositiveButtonClickListener {
             hour = timePicker.hour
             minute = timePicker.minute
+            val result = "$fullDate , $hour : $minute"
+            editText.setText(result)
         }
     }
 }

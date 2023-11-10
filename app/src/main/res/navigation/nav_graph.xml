@@ -9,7 +9,12 @@
         android:id="@+id/addTask"
         android:name="com.hadis.todoapplicarion.AddTask"
         android:label="fragment_add_task"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/fragment_add_task">
+        <action
+            android:id="@+id/action_addTask_to_currentTodo"
+            app:destination="@+id/currentTodo"
+            />
+    </fragment>
     <fragment
         android:id="@+id/currentTodo"
         android:name="com.hadis.todoapplicarion.CurrentTodos"
