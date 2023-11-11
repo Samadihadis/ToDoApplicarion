@@ -1,5 +1,8 @@
 package com.hadis.todoapplicarion
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Todo(
     var title : String,
     var description : String,

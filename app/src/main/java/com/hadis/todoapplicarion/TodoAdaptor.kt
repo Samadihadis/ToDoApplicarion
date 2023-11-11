@@ -8,6 +8,8 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.collections.immutable.mutate
+import kotlinx.coroutines.runBlocking
 
 class TodoAdaptor(var todoList: MutableList<Todo>, var context: Context) :
     RecyclerView.Adapter<TodoAdaptor.ViewHolder>() {
@@ -26,7 +28,15 @@ class TodoAdaptor(var todoList: MutableList<Todo>, var context: Context) :
         init {
             isDoneCheckBox.setOnCheckedChangeListener { button, isSelected ->
                if (isSelected){
-                   todoList.removeAt(adapterPosition)
+                 runBlocking {
+                     context.dataStore.updateData {
+                         it.copy(
+                             it.todoList.mutate {
+                                 it.removeAt(adapterPosition)
+                             }
+                         )
+                     }
+                 }
                    currentTodosBinding.recycleView.adapter!!.notifyDataSetChanged()
                }
             }

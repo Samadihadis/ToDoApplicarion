@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hadis.todoapplicarion.databinding.FragmentAddTaskBinding
 import com.hadis.todoapplicarion.databinding.FragmentCurrentTodosBinding
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
-val todoList = mutableListOf<Todo>()
- lateinit var currentTodosBinding: FragmentCurrentTodosBinding
+
+lateinit var currentTodosBinding: FragmentCurrentTodosBinding
 
 class CurrentTodos : Fragment() {
     override fun onCreateView(
@@ -30,16 +33,21 @@ class CurrentTodos : Fragment() {
             Navigation.findNavController(currentTodosBinding.addTaskButton)
                 .navigate(R.id.action_currentTodo_to_addTask)
         }
+        lifecycleScope.launch {
+            initRecycleView()
+        }
 
     }
 
     override fun onResume() {
         super.onResume()
-        initRecycleView()
+        lifecycleScope.launch {
+            initRecycleView()
+        }
     }
 
-    private fun initRecycleView() {
-        val adaptor = TodoAdaptor(todoList, requireContext())
+    private suspend fun initRecycleView() {
+        val adaptor = TodoAdaptor(requireContext().dataStore.data.first().todoList.toMutableList(), requireContext())
         currentTodosBinding.recycleView.adapter = adaptor
         currentTodosBinding.recycleView.layoutManager = LinearLayoutManager(requireContext())
     }

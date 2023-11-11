@@ -11,7 +11,7 @@ class TodoListSerializer : Serializer<TodoListHolder> {
 
 
     override suspend fun readFrom(input: InputStream): TodoListHolder {
-        return Json.decodeFromStream(
+        return Json.decodeFromString(
             TodoListHolder.serializer(),
         input.readBytes().decodeToString()
         )
