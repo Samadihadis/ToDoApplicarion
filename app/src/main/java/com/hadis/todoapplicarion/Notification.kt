@@ -23,8 +23,10 @@ class Notification(var name : String, description: String, var context: Context,
         val calender = Calendar.getInstance()
         calender.set(Calendar.HOUR_OF_DAY , (todo.time).split(":")[0].toInt())
         calender.set(Calendar.MINUTE , (todo.time).split(":")[1].toInt())
+        calender.set(Calendar.SECOND , 0)
+        calender.set(Calendar.MILLISECOND , 0)
         calender.set(Calendar.YEAR , (todo.time).split("/")[2].toInt())
-        calender.set(Calendar.MONDAY , (todo.time).split("/")[1].toInt())
+        calender.set(Calendar.MONDAY , (todo.time).split("/")[1].toInt()-1)
         calender.set(Calendar.DAY_OF_MONTH , (todo.time).split("/")[0].toInt())
 
         val notificationIntent = Intent(context , NotificationReceiver::class.java)

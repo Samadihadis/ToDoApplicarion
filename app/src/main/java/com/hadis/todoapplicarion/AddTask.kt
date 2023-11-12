@@ -1,12 +1,14 @@
 package com.hadis.todoapplicarion
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.datastore.dataStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -25,6 +27,7 @@ class AddTask : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.dateTextInput.setOnClickListener {
@@ -47,6 +50,7 @@ class AddTask : Fragment() {
                         }
                     )
                 }
+                Notification(newTodo.title , newTodo.description , requireContext() , newTodo.hashCode().toString() , newTodo)
                 Navigation.findNavController(binding.addTaskButton).navigate(R.id.action_addTask_to_currentTodo)
             }
         }
