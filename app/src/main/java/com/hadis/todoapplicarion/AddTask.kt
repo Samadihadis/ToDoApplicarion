@@ -47,9 +47,8 @@ class AddTask : Fragment() {
                         }
                     )
                 }
+                Navigation.findNavController(binding.addTaskButton).navigate(R.id.action_addTask_to_currentTodo)
             }
-            Navigation.findNavController(binding.addTaskButton).navigate(R.id.action_addTask_to_currentTodo)
-
         }
     }
 }
