@@ -38,7 +38,7 @@ class AddTask : Fragment() {
             val newTodo = Todo(
                 binding.addTitleTextView.editText?.text.toString() ,
                 binding.addDescriptionTextView.editText?.text.toString(),
-                "$hour : $minute",
+                "$hour:$minute",
                 fullDate,
                 false
             )

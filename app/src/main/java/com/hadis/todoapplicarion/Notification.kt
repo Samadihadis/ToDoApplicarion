@@ -20,17 +20,20 @@ class Notification(var name : String, description: String, var context: Context,
     }
     @RequiresApi(Build.VERSION_CODES.N)
     private fun startNotification(){
-        val calender = Calendar.getInstance()
-        calender.set(Calendar.HOUR_OF_DAY , (todo.time).split(":")[0].toInt())
-        calender.set(Calendar.MINUTE , (todo.time).split(":")[1].toInt())
-        calender.set(Calendar.SECOND , 0)
-        calender.set(Calendar.MILLISECOND , 0)
-        calender.set(Calendar.YEAR , (todo.time).split("/")[2].toInt())
-        calender.set(Calendar.MONDAY , (todo.time).split("/")[1].toInt()-1)
-        calender.set(Calendar.DAY_OF_MONTH , (todo.time).split("/")[0].toInt())
+        val calender = Calendar.getInstance().run {
+            set(Calendar.HOUR_OF_DAY , (todo.time).split(":")[0].toInt())
+            set(Calendar.MINUTE , (todo.time).split(":")[1].toInt())
+            set(Calendar.SECOND , 0)
+            set(Calendar.MILLISECOND , 0)
+            set(Calendar.YEAR , (todo.date).split("/")[2].toInt())
+            set(Calendar.MONDAY , (todo.date).split("/")[1].toInt()-1)
+            set(Calendar.DAY_OF_MONTH , (todo.date).split("/")[0].toInt())
+            this
+        }
 
         val notificationIntent = Intent(context , NotificationReceiver::class.java)
         notificationIntent.putExtra("id" , id)
+
         val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
         alarmManager.setExact(AlarmManager.RTC_WAKEUP , calender.timeInMillis,
             PendingIntent.getBroadcast

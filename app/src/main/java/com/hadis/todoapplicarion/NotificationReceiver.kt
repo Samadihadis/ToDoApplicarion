@@ -42,9 +42,12 @@ class NotificationReceiver : BroadcastReceiver() {
         pendingIntent: PendingIntent
     ) {
         val notification = NotificationCompat.Builder(context!!, id)
-            .setSmallIcon(R.drawable.ic_baseline_notifications_active).setContentTitle(title)
-            .setContentTitle(description).setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent).build()
+            .setSmallIcon(R.drawable.ic_baseline_notifications_active)
+            .setContentTitle(title)
+            .setContentTitle(description)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
+            .build()
         notificationManager.notify(id.toInt(), notification)
     }
 }
